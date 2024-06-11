@@ -15,5 +15,9 @@ export default {
       "node",
     ],
     "snapshotSerializers": ["enzyme-to-json/serializer"],
-    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"],
+    collectCoverage: true,
+    collectCoverageFrom: [
+      "src/**/*.{ts,tsx}",
+    ], 
   }
