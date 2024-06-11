@@ -1,6 +1,8 @@
 import { shallow, ShallowWrapper } from 'enzyme';
-import App from './App';
-import { Task } from './components/Task';
+import App from '../App';
+import { Task } from '../components/Task';
+import '../setupTests';
+
 
 describe('App', () => {
   let wrapper: ShallowWrapper;
