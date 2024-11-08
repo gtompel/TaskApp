@@ -10,7 +10,6 @@ import {
 import globalReducer from "@/state";
 import { api } from "@/state/api";
 import { setupListeners } from "@reduxjs/toolkit/query";
-
 import {
   persistStore,
   persistReducer,
@@ -27,17 +26,20 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 /* REDUX PERSISTENCE */
 const createNoopStorage = () => {
   return {
-    getItem(_key: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getItem(_key: string,) {
       return Promise.resolve(null);
     },
-    setItem(_key: any, value: any) {
+    setItem(_key: string, value: string | null) {
       return Promise.resolve(value);
     },
-    removeItem(_key: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    removeItem(_key: string) {
       return Promise.resolve();
     },
   };
 };
+
 
 const storage =
   typeof window === "undefined"

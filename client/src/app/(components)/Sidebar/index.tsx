@@ -48,7 +48,7 @@ const Sidebar = () => {
         {/* TOP LOGO */}
         <div className="z-50 flex min-h-[56px] w-64 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
           <div className="text-xl font-bold text-gray-800 dark:text-white">
-            PC LIST MANAGER
+          СПИСОК ПЭВМ
           </div>
           {isSidebarCollapsed ? null : (
             <button
@@ -94,7 +94,7 @@ const Sidebar = () => {
           onClick={() => setShowProjects((prev) => !prev)}
           className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
         >
-          <span className="dark:text-white">Projects</span>
+          <span className="dark:text-white">ПЭВМ</span>
           {showProjects ? (
             <ChevronUp className="h-5 w-5" />
           ) : (
@@ -109,7 +109,7 @@ const Sidebar = () => {
           onClick={() => setShowPriority((prev) => !prev)}
           className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
         >
-          <span className="dark:text-white">Priority</span>
+          <span className="dark:text-white">Приоритет</span>
           {showPriority ? (
             <ChevronUp className="h-5 w-5" />
           ) : (
@@ -120,23 +120,26 @@ const Sidebar = () => {
           <>
             <SidebarLink
               icon={AlertCircle}
-              label="Urgent"
+              label="Неотложный"
               href="/priority/urgent"
             />
             <SidebarLink
               icon={ShieldAlert}
-              label="High"
+              label="Высокий"
               href="/priority/high"
             />
             <SidebarLink
               icon={AlertTriangle}
-              label="Medium"
+              label="Средний"
               href="/priority/medium"
             />
-            <SidebarLink icon={AlertOctagon} label="Low" href="/priority/low" />
+            <SidebarLink
+            icon={AlertOctagon}
+            label="Низкий"
+            href="/priority/low" />
             <SidebarLink
               icon={Layers3}
-              label="Backlog"
+              label="Отставание"
               href="/priority/backlog"
             />
           </>
