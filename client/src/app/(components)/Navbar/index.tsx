@@ -23,9 +23,9 @@ const Navbar = () => {
 
       )}
         <div className='relative flex h-min-w w-[200px]'>
-            <Search className='absolute left-[4px] top-1/2 mr-2 h-5 w-5 -translate-y-1/2 tranform cursor-pointer dark:text-white'/>
+            <Search className='absolute left-[4px] top-1/2 mr-2 h-5 w-5 -translate-y-1/2 tranform cursor-pointer dark:bg-dark'/>
             <input
-            className='w-full rounded border-none bg-gray-100 p-2 pl-8 placeholder-gray-500 focus:border-transparent focus:outline-none dark:bg-gray-700 dark:text-black dark:placeholder-white'
+            className='w-full rounded border-none bg-gray-100 p-2 pl-8 placeholder-gray-500 focus:border-transparent focus:outline-none dark:bg-dark dark:text-white dark:placeholder-gray-500'
             type="search"
             placeholder="Поиск . . ."
             />
