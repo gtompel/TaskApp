@@ -7,15 +7,18 @@ import List from "../ListView";
 import Timeline from "../TimelineView";
 import Table from "../TableView";
 import ModalNewTask from "@/components/ModalNewTask";
+import { PageProps } from "../../../../.next/types/app/page";
 
 type Props = {
   params: { id: string };
-};
+} & PageProps;
 
 const Project = ({ params }: Props) => {
   const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
+
+
 
   return (
     <div>
