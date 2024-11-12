@@ -30,14 +30,12 @@ import React, { useState } from "react";
 const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(true);
   const [showPriority, setShowPriority] = useState(true);
-  const {data: projects} = useGetProjectsQuery()
-
+  const { data: projects } = useGetProjectsQuery();
 
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
   );
-;
 
   const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl
     transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white
@@ -50,7 +48,7 @@ const Sidebar = () => {
         {/* TOP LOGO */}
         <div className="z-50 flex min-h-[56px] w-64 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
           <div className="text-xl font-bold text-gray-800 dark:text-white">
-          СПИСОК ПЭВМ
+            СПИСОК ПЭВМ
           </div>
           {isSidebarCollapsed ? null : (
             <button
@@ -63,14 +61,10 @@ const Sidebar = () => {
             </button>
           )}
         </div>
+
         {/* TEAM */}
         <div className="flex items-center gap-5 border-y-[1.5px] border-gray-200 px-8 py-4 dark:border-gray-700">
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={40}
-            height={40}
-          />
+          <Image src="/logo.png" alt="Logo" width={40} height={40} />
           <div>
             <h3 className="text-md font-bold tracking-widest dark:text-white">
               ГАиОАРМ
@@ -81,6 +75,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+
         {/* NAVBAR LINKS */}
         <nav className="z-10 w-full">
           <SidebarLink icon={Home} label="Home" href="/" />
@@ -103,6 +98,7 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
+        
         {/* PROJECTS LIST */}
         {showProjects && (
           <>
@@ -117,7 +113,6 @@ const Sidebar = () => {
           </>
         )}
 
-
         {/* PRIORITIES LINKS */}
         <button
           onClick={() => setShowPriority((prev) => !prev)}
@@ -130,6 +125,7 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
+        
         {showPriority && (
           <>
             <SidebarLink
@@ -148,9 +144,10 @@ const Sidebar = () => {
               href="/priority/medium"
             />
             <SidebarLink
-            icon={AlertOctagon}
-            label="Низкий"
-            href="/priority/low" />
+              icon={AlertOctagon}
+              label="Низкий"
+              href="/priority/low"
+            />
             <SidebarLink
               icon={Layers3}
               label="Отставание"
@@ -159,17 +156,14 @@ const Sidebar = () => {
           </>
         )}
       </div>
+
+      {/* FOOTER */}
       <div className="z-10 mt-32 flex w-full flex-col items-center gap-4 bg-white px-8 py-4 dark:bg-black md:hidden">
         <div className="flex w-full items-center">
-          <div className="align-center flex h-9 w-9 justify-center">
-
-          </div>
-          <span className="mx-3 text-gray-800 dark:text-white">
-
-          </span>
+          <div className="align-center flex h-9 w-9 justify-center"></div>
+          <span className="mx-3 text-gray-800 dark:text-white"></span>
           <button
             className="self-start rounded bg-blue-400 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 md:block"
-
           >
             Sign out
           </button>

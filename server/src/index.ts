@@ -34,7 +34,8 @@ app.use("/users", userRoutes);
 app.use("/teams", teamRoutes);
 
 /* SERVER */
+const internalIp = process.env.INTERNAL_IP || "0.0.0.0";
 const port = Number(process.env.PORT) || 3000;
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running on part ${port}`);
+app.listen(port, internalIp, () => {
+  console.log(`Server running on http://${internalIp}:${port}`);
 });

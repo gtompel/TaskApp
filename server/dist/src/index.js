@@ -35,7 +35,8 @@ app.use("/search", searchRoutes_1.default);
 app.use("/users", userRoutes_1.default);
 app.use("/teams", teamRoutes_1.default);
 /* SERVER */
+const internalIp = process.env.INTERNAL_IP || "0.0.0.0";
 const port = Number(process.env.PORT) || 3000;
-app.listen(port, "0.0.0.0", () => {
-    console.log(`Server running on part ${port}`);
+app.listen(port, internalIp, () => {
+    console.log(`Server running on http://${internalIp}:${port}`);
 });
