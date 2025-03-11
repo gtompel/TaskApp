@@ -8,6 +8,7 @@ import { ProjectTeams } from "@/components/project-teams"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { PencilIcon, Plus } from "lucide-react"
+import { use } from "react"
 
 interface ProjectPageProps {
   params: {
@@ -15,14 +16,16 @@ interface ProjectPageProps {
   }
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const projectId = Number.parseInt(params.id)
+export default function ProjectPage({ params }: ProjectPageProps) {
+  // Используем React.use для обработки params
+  const unwrappedParams = use(Promise.resolve(params))
+  const projectId = Number.parseInt(unwrappedParams.id)
 
   if (isNaN(projectId)) {
     notFound()
   }
 
-  const project = await db.project.findUnique({
+  const projectPromise = db.project.findUnique({
     where: { id: projectId },
     include: {
       tasks: {
@@ -37,6 +40,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       },
     },
   })
+
+  const project = use(projectPromise)
 
   if (!project) {
     notFound()

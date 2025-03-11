@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "@/lib/db"
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const authConfig = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -59,6 +59,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "your-secret-key-change-me",
-})
+  secret: process.env.NEXTAUTH_SECRET || "ZXCasd432",
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig)
 

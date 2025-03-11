@@ -22,6 +22,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Пользователь с таким email уже существует" }, { status: 409 })
     }
 
+    console.log("Создание нового пользователя:", email)
+
     // Создание нового пользователя
     const user = await db.user.create({
       data: {
@@ -30,6 +32,8 @@ export async function POST(request: Request) {
         profilePictureUrl: null,
       },
     })
+
+    console.log("Пользователь создан:", user)
 
     // Удаляем чувствительные данные из ответа
     const { cognitoId, ...userWithoutSensitiveInfo } = user

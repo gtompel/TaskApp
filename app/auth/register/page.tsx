@@ -10,7 +10,6 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { signIn } from "next-auth/react"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -43,6 +42,8 @@ export default function RegisterPage() {
     }
 
     try {
+      console.log("Отправка запроса на регистрацию:", formData.email)
+
       // Отправка запроса на регистрацию
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -62,19 +63,10 @@ export default function RegisterPage() {
         throw new Error(data.message || "Ошибка при регистрации")
       }
 
-      // Автоматический вход после успешной регистрации
-      const signInResult = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      })
+      console.log("Регистрация успешна:", data)
 
-      if (signInResult?.error) {
-        router.push("/auth/login?registered=true")
-      } else {
-        router.push("/")
-        router.refresh()
-      }
+      // Перенаправление на страницу входа после успешной регистрации
+      router.push("/auth/login?registered=true")
     } catch (error) {
       console.error("Ошибка регистрации:", error)
       setError(error instanceof Error ? error.message : "Произошла ошибка при регистрации")

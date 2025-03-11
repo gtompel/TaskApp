@@ -15,7 +15,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get("callbackUrl") || "/"
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
   const error = searchParams.get("error")
   const registered = searchParams.get("registered")
 
@@ -24,6 +24,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   })
+  const [loginError, setLoginError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -35,16 +36,22 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setLoginError(null)
 
     try {
+      console.log("Attempting login with:", formData.email)
+
       const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
         redirect: false,
       })
 
+      console.log("Login result:", result)
+
       if (result?.error) {
         console.error("Ошибка входа:", result.error)
+        setLoginError("Неверный email или пароль")
         setIsLoading(false)
       } else {
         router.push(callbackUrl)
@@ -52,6 +59,7 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error("Ошибка входа:", error)
+      setLoginError("Произошла ошибка при входе")
       setIsLoading(false)
     }
   }
@@ -69,6 +77,12 @@ export default function LoginPage() {
               <AlertDescription>
                 {error === "CredentialsSignin" ? "Неверный email или пароль" : "Произошла ошибка при входе"}
               </AlertDescription>
+            </Alert>
+          )}
+
+          {loginError && (
+            <Alert variant="destructive">
+              <AlertDescription>{loginError}</AlertDescription>
             </Alert>
           )}
 
