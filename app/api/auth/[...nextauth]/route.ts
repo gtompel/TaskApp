@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import { authConfig } from "@/auth"
 import { User, Session } from "next-auth"
 
+
 // Расширяем тип User, чтобы включить roles
 interface ExtendedUser extends User {
     roles?: string[];

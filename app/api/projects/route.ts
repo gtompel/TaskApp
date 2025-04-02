@@ -1,27 +1,22 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/auth"
-import { db } from "@/lib/db"
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../api/auth/[...nextauth]/authOption";
+import { db } from "@/lib/db";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Метод не разрешен" })
-  }
-
-  const session = await getServerSession(req, res, authOptions)
+// POST method for creating a project
+export async function POST(req: Request) {
+  const session = await getServerSession(authOptions);
 
   if (!session) {
-    return res.status(401).json({ message: "Требуется авторизация" })
+    return NextResponse.json({ message: "Требуется авторизация" }, { status: 401 });
   }
 
   try {
-    const { name, description, startDate, endDate } = req.body
+    const { name, description, startDate, endDate } = await req.json();
 
     if (!name) {
-      return res.status(400).json({ message: "Название проекта обязательно" })
+      return NextResponse.json({ message: "Название проекта обязательно" }, { status: 400 });
     }
-
-    // Optional: Validate date formats here
 
     const project = await db.project.create({
       data: {
@@ -30,11 +25,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         startDate: startDate ? new Date(startDate) : null,
         endDate: endDate ? new Date(endDate) : null,
       },
-    })
+    });
 
-    return res.status(201).json({ project })
+    return NextResponse.json({ project }, { status: 201 });
   } catch (error) {
-    console.error("Ошибка при создании проекта:", error)
-    return res.status(500).json({ message: "Не удалось создать проект", error: error })
+    console.error("Ошибка при создании проекта:", error);
+    return NextResponse.json({ message: "Не удалось создать проект", error: error.message }, { status: 500 });
+  }
+}
+
+// GET method for fetching projects
+export async function GET() {
+  try {
+    const projects = await db.project.findMany();
+    return NextResponse.json({ projects }, { status: 200 });
+  } catch (error) {
+    console.error("Ошибка при получении проектов:", error);
+    return NextResponse.json({ message: "Не удалось получить проекты", error: error.message }, { status: 500 });
   }
 }
